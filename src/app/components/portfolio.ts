@@ -120,8 +120,8 @@ import {
           <div class="pt-6 border-t border-[#121212]/10 space-y-2">
             <p class="text-xs uppercase tracking-widest font-mono font-bold text-stone-500">Digital Identity Linkages</p>
             <div class="flex flex-col space-y-1 text-xs">
-              <a href="https://linkedin.com" target="_blank" class="hover:text-[#A44322] transition-colors flex items-center gap-1">
-                <span class="font-mono">./linkedin/in/trilokeshsamal</span>
+              <a [href]="personalInfo().linkedin" target="_blank" class="hover:text-[#A44322] transition-colors flex items-center gap-1">
+                <span class="font-mono">./linkedin/in/trilokesh-samal</span>
                 <span class="material-icons text-[10px]">open_in_new</span>
               </a>
               <a href="mailto:trilokesh.samal26@gmail.com" class="hover:text-[#A44322] transition-colors flex items-center gap-1">

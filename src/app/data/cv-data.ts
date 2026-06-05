@@ -41,7 +41,7 @@ export const PERSONAL_INFO = {
   email: 'trilokesh.samal26@gmail.com',
   location: 'Bhubaneswar, Odisha',
   github: 'https://github.com', // Placeholder for user customization
-  linkedin: 'https://linkedin.com/in', // Placeholder for user customization
+  linkedin: 'https://www.linkedin.com/in/trilokesh-samal-61b358140/',
   profileSumary: 'Dynamic and result-oriented Senior Operations Executive with over 9 years of cross-functional leadership spanning Business Operations, Strategy Execution, and Infrastructure Engineering. Recognized for driving enterprise transformation by scaling high-performing regional teams, optimizing complex supply chain and project delivery lifecycles, and managing multi-million-rupee corporate portfolios. Proven success in establishing market footprint, maximizing client satisfaction ecosystem parameters (100% CSAT & top-tier NPS), and combining rigorous civil engineering principles with advanced design automation to optimize operational bottom lines.',
   certifications: ['Advanced Diploma In Structural Design & Analysis'],
   languages: ['English', 'Hindi', 'Odia']
