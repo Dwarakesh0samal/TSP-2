@@ -451,6 +451,48 @@ import {
         <span>Bhubaneswar, Odisha, India</span>
         <span>&copy; 2026 Trilokesh Samal &bull; All Rights Reserved</span>
       </footer>
+
+      <!-- Floating Aesthetic Theme Controller -->
+      <div class="fixed bottom-6 right-6 z-50 flex items-center no-print" id="floating_theme_switcher">
+        <div class="flex items-center gap-1.5 p-1.5 rounded-full bg-white/90 dark:bg-[#1E1D19]/90 backdrop-blur-md shadow-2xl border border-[#121211]/10 dark:border-[#F5F2EB]/15 hover:border-[#A44322]/40 dark:hover:border-[#E26D43]/40 transition-all duration-300">
+          <button type="button" 
+                  (click)="setTheme('light')" 
+                  [class.bg-[#121212]]="currentTheme() === 'light'" 
+                  [class.text-[#FDFCF7]]="currentTheme() === 'light'"
+                  [class.bg-transparent]="currentTheme() !== 'light'"
+                  [class.text-[#121212]]="currentTheme() !== 'light'"
+                  [class.dark:text-stone-400]="currentTheme() !== 'light'"
+                  class="p-2 cursor-pointer transition-all duration-300 rounded-full hover:scale-110 active:scale-95 flex items-center justify-center shrink-0 w-8 h-8 border-none focus:outline-none" 
+                  title="Force Light Theme">
+            <span class="material-icons text-sm block">light_mode</span>
+          </button>
+          <button type="button" 
+                  (click)="setTheme('dark')" 
+                  [class.bg-[#FDFCF7]]="currentTheme() === 'dark'" 
+                  [class.text-[#121212]]="currentTheme() === 'dark'"
+                  [class.bg-transparent]="currentTheme() !== 'dark'"
+                  [class.text-[#121212]]="currentTheme() !== 'dark'"
+                  [class.dark:text-[#FDFCF7]]="currentTheme() !== 'dark'"
+                  [class.text-stone-400]="currentTheme() !== 'dark'"
+                  class="p-2 cursor-pointer transition-all duration-300 rounded-full hover:scale-110 active:scale-95 flex items-center justify-center shrink-0 w-8 h-8 border-none focus:outline-none" 
+                  title="Force Dark Theme">
+            <span class="material-icons text-sm block">dark_mode</span>
+          </button>
+          <button type="button" 
+                  (click)="setTheme('system')" 
+                  [class.bg-[#121212]]="currentTheme() === 'system' && !isDark()"
+                  [class.text-[#FDFCF7]]="currentTheme() === 'system' && !isDark()"
+                  [class.bg-[#FDFCF7]]="currentTheme() === 'system' && isDark()"
+                  [class.text-[#121212]]="currentTheme() === 'system' && isDark()"
+                  [class.bg-transparent]="currentTheme() !== 'system'"
+                  [class.text-stone-500]="currentTheme() !== 'system'"
+                  [class.dark:text-stone-400]="currentTheme() !== 'system'"
+                  class="p-2 cursor-pointer transition-all duration-300 rounded-full hover:scale-110 active:scale-95 flex items-center justify-center shrink-0 w-8 h-8 border-none focus:outline-none" 
+                  title="Sync with System Theme">
+            <span class="material-icons text-sm block">settings_brightness</span>
+          </button>
+        </div>
+      </div>
     </div>
   `,
   styles: `
@@ -512,12 +554,31 @@ export class Portfolio {
       // Setup dynamic event listeners
       mediaQuery.addEventListener('change', (e) => {
         this.isSystemDark.set(e.matches);
+        if (this.currentTheme() === 'system') {
+          this.updateRootTheme(e.matches);
+        }
       });
 
       // Retain manual selection from past sessions
       const savedTheme = localStorage.getItem('trilokesh_personal_theme') as 'light' | 'dark' | 'system' | null;
       if (savedTheme) {
         this.currentTheme.set(savedTheme);
+      }
+
+      // Initial theme setup on load
+      this.updateRootTheme(this.isDark());
+    }
+  }
+
+  updateRootTheme(dark: boolean): void {
+    if (typeof document !== 'undefined') {
+      const root = document.documentElement;
+      if (dark) {
+        root.classList.add('dark');
+        document.body.style.backgroundColor = '#121211';
+      } else {
+        root.classList.remove('dark');
+        document.body.style.backgroundColor = '#FDFCF7';
       }
     }
   }
@@ -526,6 +587,8 @@ export class Portfolio {
     this.currentTheme.set(theme);
     if (typeof window !== 'undefined') {
       localStorage.setItem('trilokesh_personal_theme', theme);
+      const dark = theme === 'dark' || (theme === 'system' && this.isSystemDark());
+      this.updateRootTheme(dark);
     }
   }
 
